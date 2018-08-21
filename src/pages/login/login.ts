@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppUserProvider } from '../../providers/app-user/app-user';
+import { RegisterPage } from '../../pages/register/register';
+import { HomePage } from '../home/home';
 
 
 /**
@@ -27,12 +29,16 @@ export class LoginPage {
       password: ""
     };
     
+    routeToRegister(){
+      this.navCtrl.push(RegisterPage)
+    }
+
     onLogin() {
       this.AppUserProvider.login(this.user)
         .subscribe((response: any) => {
           window.sessionStorage.setItem('token', response.token)
           window.sessionStorage.setItem('userId', response.userId)
-          //this.router.navigateByUrl('/home');
+          this.navCtrl.push(HomePage);
           console.log(response);
       })
     }
